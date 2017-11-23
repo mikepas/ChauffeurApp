@@ -4,9 +4,43 @@
              x:Class="ChauffeurApp.DashboardPage">
     <ContentPage.Content>
         <StackLayout>
-            <ContentView Padding="0,10" BackgroundColor="#8BC34A" Margin="0,0,0,20" HorizontalOptions="FillAndExpand">
+            <ContentView Padding="0,10" BackgroundColor="#8BC34A" HorizontalOptions="FillAndExpand">
                 <Label Text="Chauffeur Mike" HorizontalTextAlignment="Center" FontSize="32" TextColor="Black"></Label>
             </ContentView>
+            <Grid Margin="10,20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+            
+                <Label Grid.Row="0" Grid.Column="0" BackgroundColor="DarkGray" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Nummer</Label>
+                <Label Grid.Row="0" Grid.Column="1" BackgroundColor="DarkGray" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie</Label>
+                <Label Grid.Row="0" Grid.Column="2" BackgroundColor="DarkGray" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Soort</Label>
+
+                <Label x:Name="Label" Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">1</Label>
+                <Label Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie 1</Label>
+                <Label Grid.Row="1" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Ophalen</Label>
+
+                <Label Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">2</Label>
+                <Label Grid.Row="2" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie 2</Label>
+                <Label Grid.Row="2" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Afleveren</Label>
+
+                <Label Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">3</Label>
+                <Label Grid.Row="3" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie 3</Label>
+                <Label Grid.Row="3" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Ophalen</Label>
+
+                <Label Grid.Row="4" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">4</Label>
+                <Label Grid.Row="4" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie 4</Label>
+                <Label Grid.Row="4" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Ophalen</Label>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

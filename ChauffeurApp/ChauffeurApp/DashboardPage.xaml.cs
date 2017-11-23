@@ -16,7 +16,14 @@ namespace ChauffeurApp
 		public DashboardPage ()
 		{
 			InitializeComponent ();
-		}
+
+		    var forgetPassword_tap = new TapGestureRecognizer();
+		    forgetPassword_tap.Tapped += (s, e) =>
+		    {
+		        Navigation.PushModalAsync(new OrderPage());
+		    };
+            Label.GestureRecognizers.Add(forgetPassword_tap);
+        }
 
 	    protected override bool OnBackButtonPressed()
 	    {
