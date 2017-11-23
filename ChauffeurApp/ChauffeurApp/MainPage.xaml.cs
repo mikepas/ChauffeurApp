@@ -12,6 +12,7 @@ namespace ChauffeurApp
         public MainPage()
         {
             InitializeComponent();
+            Image.Source = ImageSource.FromResource("ChauffeurApp.eeoswqfxlmiozhyszotl.png");
         }
     }
 }

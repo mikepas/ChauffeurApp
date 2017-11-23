@@ -2,12 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ChauffeurApp"
-             x:Class="ChauffeurApp.MainPage">
+             x:Class="ChauffeurApp.MainPage"
+             Title="Chauffeurs App">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Chauffeurs App" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontSize="32" Margin="0,0,0,20" BackgroundColor="YellowGreen"></Label>
+            <Image x:Name="Image"></Image>
+            <Entry Placeholder="Gebruikersnaam..." x:Name="usernameEntry" Margin="10,0" />
+            <Entry Placeholder="Wachtwoord..." IsPassword="true" x:Name="passwordEntry" Margin="10,0" />
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Inloggen" HorizontalOptions="CenterAndExpand"/>
+                <Button Text="Registreren" HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
