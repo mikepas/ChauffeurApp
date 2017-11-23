@@ -14,5 +14,10 @@ namespace ChauffeurApp
             InitializeComponent();
             Image.Source = ImageSource.FromResource("ChauffeurApp.eeoswqfxlmiozhyszotl.png");
         }
+
+        private void Button_OnClicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new DashboardPage());
+        }
     }
 }

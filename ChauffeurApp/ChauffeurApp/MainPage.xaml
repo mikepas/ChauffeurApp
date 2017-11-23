@@ -9,14 +9,15 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Chauffeurs App" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontSize="32" Margin="0,0,0,20" BackgroundColor="YellowGreen"></Label>
-            <Image x:Name="Image"></Image>
+            <ContentView Padding="0,10" BackgroundColor="#8BC34A" Margin="0,0,0,20" HorizontalOptions="FillAndExpand">
+                <Label Text="Chauffeurs App" HorizontalTextAlignment="Center" FontSize="32" TextColor="Black"></Label>
+            </ContentView>
+            <ContentView HeightRequest="100" Margin="0,0,0,10">
+                <Image x:Name="Image"></Image>
+            </ContentView>
             <Entry Placeholder="Gebruikersnaam..." x:Name="usernameEntry" Margin="10,0" />
             <Entry Placeholder="Wachtwoord..." IsPassword="true" x:Name="passwordEntry" Margin="10,0" />
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Inloggen" HorizontalOptions="CenterAndExpand"/>
-                <Button Text="Registreren" HorizontalOptions="CenterAndExpand" />
-            </StackLayout>
+            <Button Text="Inloggen" HorizontalOptions="CenterAndExpand" FontSize="18" Clicked="Button_OnClicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
