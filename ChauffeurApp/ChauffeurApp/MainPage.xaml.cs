@@ -15,9 +15,22 @@ namespace ChauffeurApp
             Image.Source = ImageSource.FromResource("ChauffeurApp.eeoswqfxlmiozhyszotl.png");
         }
 
+        protected override void OnAppearing()
+        {
+            usernameEntry.Text = "erik@snellewiel.nl";
+            passwordEntry.Text = "test";
+        }
+
         private void Button_OnClicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new DashboardPage());
+            if (usernameEntry.Text == "erik@snellewiel.nl" && passwordEntry.Text == "test")
+            {
+                Navigation.PushModalAsync(new DashboardPage());
+            }
+            else
+            {
+                DisplayAlert("Onjuist!", "Gebruikersnaam of wachtwoord is onjuist!", "Ok");
+            }
         }
     }
 }

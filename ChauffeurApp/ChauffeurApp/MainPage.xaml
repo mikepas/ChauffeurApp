@@ -15,9 +15,11 @@
             <ContentView HeightRequest="100" Margin="0,0,0,10">
                 <Image x:Name="Image"></Image>
             </ContentView>
-            <Entry Placeholder="Gebruikersnaam..." x:Name="usernameEntry" Margin="10,0" />
-            <Entry Placeholder="Wachtwoord..." IsPassword="true" x:Name="passwordEntry" Margin="10,0" />
-            <Button Text="Inloggen" HorizontalOptions="CenterAndExpand" FontSize="18" Clicked="Button_OnClicked" />
+            <StackLayout WidthRequest="300" HorizontalOptions="Center">
+                <Entry Placeholder="Gebruikersnaam..." Keyboard="Email" x:Name="usernameEntry" Margin="10,0" />
+                <Entry Placeholder="Wachtwoord..." IsPassword="true" x:Name="passwordEntry" Margin="10,0" />
+                <Button Text="Inloggen" HorizontalOptions="CenterAndExpand" FontSize="18" Clicked="Button_OnClicked" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

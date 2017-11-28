@@ -1,17 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chauffeurApp="clr-namespace:ChauffeurApp;assembly=ChauffeurApp"
              x:Class="ChauffeurApp.DashboardPage">
     <ContentPage.Content>
         <StackLayout>
-            <ContentView Padding="0,10" BackgroundColor="#8BC34A" HorizontalOptions="FillAndExpand">
-                <Label Text="Chauffeur Mike" HorizontalTextAlignment="Center" FontSize="32" TextColor="Black"></Label>
-            </ContentView>
-            <Grid Margin="10,20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0">
+            <Grid Padding="0,10" BackgroundColor="#8BC34A" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Text="Chauffeur Erik" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="24" TextColor="Black"></Label>
+                <Image x:Name="imageBack" Source="https://d30y9cdsu7xlg0.cloudfront.net/png/344330-200.png" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Center"></Image>
+            </Grid>
+            <ListView x:Name="listView" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Margin="10,5" ItemTapped="ListView_OnItemTapped">
+                <ListView.Header>
+                    <Grid BackgroundColor="#bbb">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="80"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="Nr" FontAttributes="Bold" HeightRequest="40" Margin="20,0,0,0" VerticalTextAlignment="Center" />
+                        <Label Grid.Column="1" Text="Adres" FontAttributes="Bold" HeightRequest="40" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                        <Label Grid.Column="2" Text="Soort" FontAttributes="Bold" HeightRequest="40" VerticalTextAlignment="Center" />
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <chauffeurApp:CustomViewCell SelectedBackgroundColor="#eee">
+                            <ViewCell.View>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition Width="80"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Number}" HeightRequest="40" Margin="20,0,0,0" VerticalTextAlignment="Center" />
+                                    <Label Grid.Column="1" Text="{Binding Address}" HeightRequest="40" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                                    <Label Grid.Column="2" Text="{Binding Type}" HeightRequest="40" VerticalTextAlignment="Center" />
+                                </Grid>
+                            </ViewCell.View>
+                        </chauffeurApp:CustomViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!--<Grid Margin="10,20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"></RowDefinition>
@@ -21,26 +58,26 @@
                     <RowDefinition Height="40"></RowDefinition>
                 </Grid.RowDefinitions>
             
-                <Label Grid.Row="0" Grid.Column="0" BackgroundColor="DarkGray" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Nummer</Label>
+                <Label Grid.Row="0" Grid.Column="0" BackgroundColor="DarkGray" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Nr</Label>
                 <Label Grid.Row="0" Grid.Column="1" BackgroundColor="DarkGray" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie</Label>
                 <Label Grid.Row="0" Grid.Column="2" BackgroundColor="DarkGray" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Soort</Label>
 
                 <Label x:Name="Label" Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">1</Label>
-                <Label Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie 1</Label>
+                <Label Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Hoofdstraat 1, Best</Label>
                 <Label Grid.Row="1" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Ophalen</Label>
 
-                <Label Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">2</Label>
-                <Label Grid.Row="2" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie 2</Label>
+                <Label Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">1</Label>
+                <Label Grid.Row="2" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Frederiklaan 8, Eindhoven</Label>
                 <Label Grid.Row="2" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Afleveren</Label>
 
-                <Label Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">3</Label>
-                <Label Grid.Row="3" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie 3</Label>
+                <Label Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">2</Label>
+                <Label Grid.Row="3" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Sterrenlaan 10, Eindhoven</Label>
                 <Label Grid.Row="3" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Ophalen</Label>
 
-                <Label Grid.Row="4" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">4</Label>
-                <Label Grid.Row="4" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Locatie 4</Label>
-                <Label Grid.Row="4" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Ophalen</Label>
-            </Grid>
+                <Label Grid.Row="4" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">2</Label>
+                <Label Grid.Row="4" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">markt 3, Oss</Label>
+                <Label Grid.Row="4" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16">Afleveren</Label>
+            </Grid>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

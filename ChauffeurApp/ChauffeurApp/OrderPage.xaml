@@ -3,10 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ChauffeurApp.OrderPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to the Order Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="270"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="6"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--<WebView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="FillAndExpand">
+                    <WebView.Source>http://maps.googleapis.com/maps/api/staticmap?markers=color:red|label:M|5611DE+Kerkstraat+7+eindhoven&amp;markers=color:green|label:A|5611VA+Kanaaldijk-Zuid+7&amp;size=350x300</WebView.Source>
+                </WebView>-->
+                <Image x:Name="imageMap" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="FillAndExpand" ></Image>
+                
+                <Image x:Name="imageBack" Grid.Row="0" Grid.Column="0" Source="https://d30y9cdsu7xlg0.cloudfront.net/png/344330-200.png" HorizontalOptions="FillAndExpand" VerticalOptions="Start"></Image>
+                
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="28">Order details</Label>
+                
+                <ContentView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="FillAndExpand" BackgroundColor="Black" Margin="0,0,0,5"></ContentView>
+                
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" Margin="20,0,0,0">Ordernummer:</Label>
+                <Label x:Name="lbOrderNumber" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" Margin="20,0,0,0">1</Label>
+                
+                <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" Margin="20,0,0,0">Ophaaladres:</Label>
+                <Label x:Name="lbOphaalAdres" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" Margin="20,0,0,0">Hoofdstraat 1, Best</Label>
+                
+                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" Margin="20,0,0,0">Afleveradres:</Label>
+                <Label x:Name="lbAfleverAdres" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" Margin="20,0,0,0">Frederiklaan 8, Eindhoven</Label>
+                
+                <Switch x:Name="switchOpgehaald" Grid.Row="6" Grid.Column="0" Margin="15,0,0,0" Toggled="SwitchOpgehaald_OnToggled"/>
+                <Label Grid.Row="6" Grid.Column="1" HorizontalOptions="StartAndExpand" Margin="10,8,0,0">Opgehaald?</Label>
+                
+                <Switch x:Name="switchAfgeleverd" Grid.Row="6" Grid.Column="2" Margin="15,0,0,0" Toggled="SwitchAfgeleverd_OnToggled"/>
+                <Label Grid.Row="6" Grid.Column="3" HorizontalOptions="StartAndExpand" Margin="10,8,0,0">Afgeleverd?</Label>
+                
+                <Switch x:Name="switchIssue1" Grid.Row="7" Grid.Column="0" Margin="15,0,0,0" Toggled="SwitchIssue1_OnToggled"/>
+                <Label Grid.Row="7" Grid.Column="1" HorizontalOptions="StartAndExpand" Margin="10,8,0,0">Issue?</Label>
+                
+                <Switch x:Name="switchIssue2" Grid.Row="7" Grid.Column="2" Margin="15,0,0,0" Toggled="SwitchIssue2_OnToggled"/>
+                <Label Grid.Row="7" Grid.Column="3" HorizontalOptions="StartAndExpand" Margin="10,8,0,0">Issue?</Label>
+                
+                <Editor x:Name="entryIssue1" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="5,0,0,5" IsEnabled="False"></Editor>
+                <Editor x:Name="entryIssue2" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="0,0,5,5" IsEnabled="False"></Editor>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
