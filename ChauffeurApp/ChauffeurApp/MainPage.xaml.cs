@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using ChauffeurApp.classes;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -26,7 +24,7 @@ namespace ChauffeurApp
         private async void Button_OnClicked(object sender, EventArgs e)
         {
             HttpClient client = new HttpClient();
-            var result = "";
+            string result;
 
             try
             {
