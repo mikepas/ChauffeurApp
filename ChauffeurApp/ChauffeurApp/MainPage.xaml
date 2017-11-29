@@ -12,13 +12,13 @@
             <ContentView Padding="0,10" BackgroundColor="#8BC34A" Margin="0,0,0,20" HorizontalOptions="FillAndExpand">
                 <Label Text="Chauffeurs App" HorizontalTextAlignment="Center" FontSize="32" TextColor="Black"></Label>
             </ContentView>
-            <ContentView HeightRequest="100" Margin="0,0,0,10">
+            <ContentView HeightRequest="100" Margin="0,0,0,20">
                 <Image x:Name="Image"></Image>
             </ContentView>
             <StackLayout WidthRequest="300" HorizontalOptions="Center">
                 <Entry Placeholder="Gebruikersnaam..." Keyboard="Email" x:Name="usernameEntry" Margin="10,0" />
                 <Entry Placeholder="Wachtwoord..." IsPassword="true" x:Name="passwordEntry" Margin="10,0" />
-                <Button Text="Inloggen" HorizontalOptions="CenterAndExpand" FontSize="18" Clicked="Button_OnClicked" />
+                <Button Text="Inloggen" HorizontalOptions="CenterAndExpand" FontSize="18" Clicked="Button_OnClicked" WidthRequest="150" Margin="0,20" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
