@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using ChauffeurApp.classes;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,6 +30,11 @@ namespace ChauffeurApp
             SetLabels();
             SetMapImage();
         }
+        protected override bool OnBackButtonPressed()
+        {
+            UpdateRit();
+            return true;
+        }
 
         private void SetLabels()
         {
@@ -41,6 +49,45 @@ namespace ChauffeurApp
                 else if (orderItem.Type == "Afleveren")
                 {
                     lbAfleverAdres.Text = orderItem.Address;
+                }
+            }
+        }
+
+        private async void UpdateRit()
+        {
+            HttpClient client = new HttpClient();
+
+            var entryIssue1Text = entryIssue1.Text;
+            var entryIssue2Text = entryIssue2.Text;
+
+            if (entryIssue1Text == null)
+            {
+                entryIssue1Text = "null";
+            }
+
+            if (entryIssue2Text == null)
+            {
+                entryIssue2Text = "null";
+            }
+
+            try
+            {
+                var url = "http://webdesignwolters.nl/snelle-wiel/admin/api/updaterit/" + switchOpgehaald.IsToggled +
+                          "/" + switchIssue1.IsToggled + "/" + entryIssue1Text + "/" + switchAfgeleverd.IsToggled +
+                          "/" + switchIssue2.IsToggled + "/" + entryIssue2Text;
+                await client.GetStringAsync(url);
+
+                base.OnBackButtonPressed();
+            }
+            catch (Exception)
+            {
+                if (await DisplayAlert("Geen verbinding!", "Zet uw WIFI of mobiele data aan.\n\nOpnieuw proberen?", "ja", "nee"))
+                {
+                    UpdateRit();
+                }
+                else
+                {
+                    base.OnBackButtonPressed();
                 }
             }
         }

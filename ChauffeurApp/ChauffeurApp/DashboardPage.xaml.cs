@@ -49,7 +49,7 @@ namespace ChauffeurApp
 	        }
 	        catch (Exception)
 	        {
-	            if (!await DisplayAlert("Geen gegevens!", "Er konden geen gegevens worden opgehaald.\nProbeer opnieuw!", "ja", "nee")) return;
+	            if (!await DisplayAlert("Geen gegevens!", "Er konden geen gegevens worden opgehaald.\n\nProbeer opnieuw!", "ja", "nee")) return;
                 GetRitOrders(id);
             }
 	    }

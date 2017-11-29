@@ -23,6 +23,9 @@ namespace ChauffeurApp
 
         private async void Button_OnClicked(object sender, EventArgs e)
         {
+            var button = (Button) sender;
+            button.IsEnabled = false;
+
             HttpClient client = new HttpClient();
             string result;
 
@@ -33,6 +36,7 @@ namespace ChauffeurApp
             catch (Exception)
             {
                 await DisplayAlert("Geen verbinding!", "Zet uw WIFI of mobiele data aan!", "Ok");
+                button.IsEnabled = true;
                 return;
             }
 
@@ -44,7 +48,10 @@ namespace ChauffeurApp
             catch (Exception)
             {
                 await DisplayAlert("Onjuist!", "Gebruikersnaam of wachtwoord is onjuist!", "Ok");
+                button.IsEnabled = true;
             }
+
+            button.IsEnabled = true;
         }
     }
 }
