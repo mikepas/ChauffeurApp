@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -53,10 +48,7 @@ namespace ChauffeurApp
         {
             var ophaalAdres = lbOphaalAdres.Text.Replace(",", "").Replace(" ", "+");
             var afleverAdres = lbAfleverAdres.Text.Replace(",", "").Replace(" ", "+");
-            var url = "http://maps.googleapis.com/maps/api/staticmap?";
-            url += "markers=color:blue|label:ophaaladres|" + ophaalAdres + "&";
-            url += "markers=color:green|label:afleveradres|" + afleverAdres + "&";
-            url += "size=400x300";
+            var url = "http://maps.googleapis.com/maps/api/staticmap?markers=color:blue|label:ophaaladres|" + ophaalAdres + "&markers=color:green|label:afleveradres|" + afleverAdres + "&size=400x300";
             imageMap.Source = url;
         }
 

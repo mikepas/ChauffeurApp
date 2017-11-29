@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -35,7 +28,7 @@ namespace ChauffeurApp
             //Label.GestureRecognizers.Add(forgetPasswordTap);
 
 
-		    listView.ItemsSource = new TodoItem[] {
+		    listView.ItemsSource = new[] {
 		        new TodoItem { Number = "1", Address = "Doormanlaan 50, Son en Breugel", Type = "Ophalen" },
 		        new TodoItem { Number = "1", Address = "Apollolaan 31, Son en Breugel", Type = "Afleveren" },
 		        new TodoItem { Number = "2", Address = "Doormanlaan 8, Son en Breugel", Type = "Ophalen" },
@@ -43,10 +36,10 @@ namespace ChauffeurApp
 		    };
         }
 
-	    private void OnTap(View arg1, object arg2)
-	    {
-	        LogOut();
-	    }
+	    //private void OnTap(View arg1, object arg2)
+	    //{
+	        //LogOut();
+	    //}
 
         protected override bool OnBackButtonPressed()
 	    {
@@ -73,6 +66,7 @@ namespace ChauffeurApp
             foreach (var item in listview.ItemsSource)
 	        {
 	            var castItem = (TodoItem)item;
+
 	            if (castItem.Number.Equals(selectedItem.Number))
 	            {
 	                passingItems.Add(castItem);

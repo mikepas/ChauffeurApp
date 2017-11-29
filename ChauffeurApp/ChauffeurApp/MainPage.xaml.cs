@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace ChauffeurApp
@@ -21,16 +20,25 @@ namespace ChauffeurApp
             passwordEntry.Text = "test";
         }
 
-        private void Button_OnClicked(object sender, EventArgs e)
+        private async void Button_OnClicked(object sender, EventArgs e)
         {
+            //var result = await CheckLogin();
             if (usernameEntry.Text == "erik@snellewiel.nl" && passwordEntry.Text == "test")
             {
-                Navigation.PushModalAsync(new DashboardPage());
+                await Navigation.PushModalAsync(new DashboardPage());
             }
             else
             {
-                DisplayAlert("Onjuist!", "Gebruikersnaam of wachtwoord is onjuist!", "Ok");
+                await DisplayAlert("Onjuist!", "Gebruikersnaam of wachtwoord is onjuist!", "Ok");
             }
+        }
+
+        private async Task<string> CheckLogin(string password = "test", string username = "ivowo2@gmail.com")
+        {
+            string webadres = "http://webdesignwolters.nl/snelle-wiel/admin/api/login/"+username+"/"+password;
+            HttpClient client = new HttpClient();
+            string json = await client.GetStringAsync(webadres);
+            return JsonConvert.DeserializeObject<string>(json);
         }
     }
 }
