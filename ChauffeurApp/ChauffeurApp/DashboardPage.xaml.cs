@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using ChauffeurApp.classes;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,11 +13,13 @@ namespace ChauffeurApp
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DashboardPage : ContentPage
 	{
-		public DashboardPage ()
-		{
-			InitializeComponent ();
+	    private readonly List<Ritten> _orders = new List<Ritten>();
 
-		    //imageBack.GestureRecognizers.Add(new TapGestureRecognizer(OnTap));
+        public DashboardPage (string id, string naam)
+		{
+		    InitializeComponent ();
+
+		    lbChauffeurName.Text = "Welkom " + naam;
 
 		    var imageLogout = new TapGestureRecognizer();
 		    imageLogout.Tapped += (s, e) =>
@@ -20,26 +28,33 @@ namespace ChauffeurApp
 		    };
 		    imageBack.GestureRecognizers.Add(imageLogout);
 
-            //var forgetPasswordTap = new TapGestureRecognizer();
-		    //forgetPasswordTap.Tapped += (s, e) =>
-		    //{
-		        //Navigation.PushModalAsync(new OrderPage());
-		    //};
-            //Label.GestureRecognizers.Add(forgetPasswordTap);
-
-
-		    listView.ItemsSource = new[] {
-		        new TodoItem { Number = "1", Address = "Doormanlaan 50, Son en Breugel", Type = "Ophalen" },
-		        new TodoItem { Number = "1", Address = "Apollolaan 31, Son en Breugel", Type = "Afleveren" },
-		        new TodoItem { Number = "2", Address = "Doormanlaan 8, Son en Breugel", Type = "Ophalen" },
-		        new TodoItem { Number = "2", Address = "Apollolaan 15, Son en Breugel", Type = "Afleveren" }
-		    };
+            GetRitOrders(id);
         }
 
-	    //private void OnTap(View arg1, object arg2)
-	    //{
-	        //LogOut();
-	    //}
+	    public async void GetRitOrders(string id)
+	    {
+	        HttpClient client = new HttpClient();
+	        var result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/admin/api/getordersfromrit/" + id);
+
+	        try
+	        {
+	            var trimmedResult = result.Replace(" ","");
+	            var ritOrders = JsonConvert.DeserializeObject<List<RitOrders>>(trimmedResult);
+
+                foreach (var ritOrder in ritOrders)
+	            {
+                    _orders.Add(new Ritten(ritOrder.Orderid, ritOrder.Postcodebeginbestemming, "Ophalen"));
+                    _orders.Add(new Ritten(ritOrder.Orderid, ritOrder.Postcodeeindbestemming, "Afleveren"));
+	            }
+
+	            listView.ItemsSource = _orders;
+	        }
+	        catch (Exception)
+	        {
+	            if (!await DisplayAlert("Geen gegevens!", "Er konden geen gegevens worden opgehaald.\nProbeer opnieuw!", "ja", "nee")) return;
+                GetRitOrders(id);
+            }
+	    }
 
         protected override bool OnBackButtonPressed()
 	    {
@@ -61,11 +76,11 @@ namespace ChauffeurApp
 	        var passingItems = new List<object>();
 
             var listview = (ListView) sender;
-	        var selectedItem = (TodoItem)listview.SelectedItem;
+	        var selectedItem = (Ritten)listview.SelectedItem;
 
             foreach (var item in listview.ItemsSource)
 	        {
-	            var castItem = (TodoItem)item;
+	            var castItem = (Ritten)item;
 
 	            if (castItem.Number.Equals(selectedItem.Number))
 	            {
@@ -76,11 +91,4 @@ namespace ChauffeurApp
 	        Navigation.PushModalAsync(new OrderPage(passingItems));
         }
 	}
-
-    public class TodoItem
-    {
-        public string Number { get; set; }
-        public string Address { get; set; }
-        public string Type { get; set; }
-    }
 }

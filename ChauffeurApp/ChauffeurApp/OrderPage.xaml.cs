@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ChauffeurApp.classes;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -31,7 +32,7 @@ namespace ChauffeurApp
         {
             foreach (var item in _items)
             {
-                var orderItem = (TodoItem)item;
+                var orderItem = (Ritten)item;
 
                 lbOrderNumber.Text = orderItem.Number;
 

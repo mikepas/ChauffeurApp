@@ -38,6 +38,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="classes\Chauffeur.cs" />
+    <Compile Include="classes\RitOrders.cs" />
+    <Compile Include="classes\Ritten.cs" />
     <Compile Include="CustomViewCell.cs" />
     <Compile Include="DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
