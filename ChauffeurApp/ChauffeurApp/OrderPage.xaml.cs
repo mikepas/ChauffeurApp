@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using ChauffeurApp.classes;
-using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,11 +8,27 @@ namespace ChauffeurApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OrderPage : ContentPage
     {
-        private readonly List<object> _items;
+        private readonly string _id;
+        private readonly string _ophaalAddress;
+        private readonly string _afleverAddress;
+        private readonly string _opgehaald;
+        private readonly string _opgehaaldIssue;
+        private readonly string _opgehaaldOmschrijving;
+        private readonly string _afgeleverd;
+        private readonly string _afgeleverdIssue;
+        private readonly string _afgeleverdOmschrijving;
 
-        public OrderPage(List<object> items)
+        public OrderPage(string id, string ophaalAddress, string afleverAddress, string opgehaald, string opgehaaldIssue, string opgehaaldOmschrijving, string afgeleverd, string afgeleverdIssue, string afgeleverdOmschrijving)
         {
-            _items = items;
+            _id = id;
+            _ophaalAddress = ophaalAddress;
+            _afleverAddress = afleverAddress;
+            _opgehaald = opgehaald;
+            _opgehaaldIssue = opgehaaldIssue;
+            _opgehaaldOmschrijving = opgehaaldOmschrijving;
+            _afgeleverd = afgeleverd;
+            _afgeleverdIssue = afgeleverdIssue;
+            _afgeleverdOmschrijving = afgeleverdOmschrijving;
             InitializeComponent();
 
             imageMap.Source = ImageSource.FromResource("ChauffeurApp.loading_apple.gif");
@@ -30,26 +43,30 @@ namespace ChauffeurApp
             SetLabels();
             SetMapImage();
         }
-        protected override bool OnBackButtonPressed()
-        {
-            UpdateRit();
-            return true;
-        }
 
         private void SetLabels()
         {
-            foreach (var item in _items)
+            lbOrderNumber.Text = _id;
+
+            lbOphaalAdres.Text = _ophaalAddress;
+            lbAfleverAdres.Text = _afleverAddress;
+
+            if (_opgehaald == "1")
+                switchOpgehaald.IsToggled = true;
+
+            if (_afgeleverd == "1")
+                switchAfgeleverd.IsToggled = true;
+
+            if (_opgehaaldIssue == "1")
             {
-                var orderItem = (Ritten)item;
+                switchIssue1.IsToggled = true;
+                entryIssue1.Text = _opgehaaldOmschrijving;
+            }
 
-                lbOrderNumber.Text = orderItem.Number;
-
-                if (orderItem.Type == "Ophalen")
-                    lbOphaalAdres.Text = orderItem.Address;
-                else if (orderItem.Type == "Afleveren")
-                {
-                    lbAfleverAdres.Text = orderItem.Address;
-                }
+            if (_afgeleverdIssue == "1")
+            {
+                switchIssue2.IsToggled = true;
+                entryIssue2.Text = _afgeleverdOmschrijving;
             }
         }
 
@@ -57,37 +74,56 @@ namespace ChauffeurApp
         {
             HttpClient client = new HttpClient();
 
-            var entryIssue1Text = entryIssue1.Text;
-            var entryIssue2Text = entryIssue2.Text;
+            var opgehaald = "0";
+            var afgehaald = "0";
+            var issueOpgehaald = "0";
+            var issueAfgehaald = "0";
 
-            if (entryIssue1Text == null)
+            if (switchOpgehaald.IsToggled)
             {
-                entryIssue1Text = "null";
+                opgehaald = "1";
             }
 
-            if (entryIssue2Text == null)
+            if (switchAfgeleverd.IsToggled)
             {
-                entryIssue2Text = "null";
+                afgehaald = "1";
+            }
+
+            if (switchIssue1.IsToggled)
+            {
+                issueOpgehaald = "1";
+            }
+
+            if (switchIssue2.IsToggled)
+            {
+                issueAfgehaald = "1";
             }
 
             try
             {
-                var url = "http://webdesignwolters.nl/snelle-wiel/admin/api/updaterit/" + switchOpgehaald.IsToggled +
-                          "/" + switchIssue1.IsToggled + "/" + entryIssue1Text + "/" + switchAfgeleverd.IsToggled +
-                          "/" + switchIssue2.IsToggled + "/" + entryIssue2Text;
-                await client.GetStringAsync(url);
+                if (issueOpgehaald == "1" && entryIssue1.Text == "")
+                {
+                    await DisplayAlert("Leeg veld!", "Vul een opmerking in!", "Ok");
+                    return;
+                }
 
-                base.OnBackButtonPressed();
+                if (issueAfgehaald == "1" && entryIssue2.Text == "")
+                {
+                    await DisplayAlert("Leeg veld!", "Vul een opmerking in!", "Ok");
+                    return;
+                }
+
+                var url = "http://webdesignwolters.nl/snelle-wiel/admin/api/updaterit/" + _id + "/" + opgehaald +
+                          "/" + issueOpgehaald + "/" + entryIssue1.Text + "/" + afgehaald +
+                          "/" + issueAfgehaald + "/" + entryIssue2.Text;
+                await client.GetStringAsync(url);
+                await DisplayAlert("Opgeslagen!", "De gegevens zijn opgeslagen!", "Ok");
             }
             catch (Exception)
             {
-                if (await DisplayAlert("Geen verbinding!", "Zet uw WIFI of mobiele data aan.\n\nOpnieuw proberen?", "ja", "nee"))
+                if (await DisplayAlert("Geen verbinding!", "Zet uw WIFI of mobiele data aan.\n\nOpnieuw proberen?", "ja", "niet opslaan"))
                 {
                     UpdateRit();
-                }
-                else
-                {
-                    base.OnBackButtonPressed();
                 }
             }
         }
@@ -142,6 +178,11 @@ namespace ChauffeurApp
             if (!e.Value) return;
             switchIssue2.IsToggled = false;
             entryIssue2.Text = "";
+        }
+
+        private void BtnUpdate_OnClicked(object sender, EventArgs e)
+        {
+            UpdateRit();
         }
     }
 }

@@ -9,8 +9,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label x:Name="lbChauffeurName" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="24" TextColor="Black"></Label>
-                <Image x:Name="imageBack" Source="https://d30y9cdsu7xlg0.cloudfront.net/png/344330-200.png" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Center"></Image>
+                <Label x:Name="lbChauffeurName" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="24"></Label>
+                <Image x:Name="imageBack" Source="https://d30y9cdsu7xlg0.cloudfront.net/png/344330-200.png" WidthRequest="50" HorizontalOptions="Start" VerticalOptions="Center"></Image>
+                <Image x:Name="imageRefresh" Source="https://d30y9cdsu7xlg0.cloudfront.net/png/5651-200.png" WidthRequest="30" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0"></Image>
             </Grid>
             <ListView x:Name="listView" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Margin="10,5" ItemTapped="ListView_OnItemTapped">
                 <ListView.Header>

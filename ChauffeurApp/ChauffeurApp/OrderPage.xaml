@@ -8,13 +8,15 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="270"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="6"></RowDefinition>
+                    <RowDefinition Height="1"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="70"></ColumnDefinition>
@@ -25,13 +27,15 @@
                 <!--<WebView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="FillAndExpand">
                     <WebView.Source>http://maps.googleapis.com/maps/api/staticmap?markers=color:red|label:M|5611DE+Kerkstraat+7+eindhoven&amp;markers=color:green|label:A|5611VA+Kanaaldijk-Zuid+7&amp;size=350x300</WebView.Source>
                 </WebView>-->
-                <Image x:Name="imageMap" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="FillAndExpand" ></Image>
+                <Image x:Name="imageMap" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="FillAndExpand" BackgroundColor="#8BC34A" Margin="-10,0,0,-7"></Image>
                 
-                <Image x:Name="imageBack" Grid.Row="0" Grid.Column="0" Source="https://d30y9cdsu7xlg0.cloudfront.net/png/344330-200.png" HorizontalOptions="FillAndExpand" VerticalOptions="Start"></Image>
+                <Image x:Name="imageBack" Grid.Row="0" Grid.Column="0" Source="https://d30y9cdsu7xlg0.cloudfront.net/png/344330-200.png" WidthRequest="50" VerticalOptions="Start" HorizontalOptions="Start"></Image>
+
+                <ContentView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" BackgroundColor="#8BC34A">
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" FontSize="24">Order details</Label>
+                </ContentView>
                 
-                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="28">Order details</Label>
-                
-                <ContentView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="FillAndExpand" BackgroundColor="Black" Margin="0,0,0,5"></ContentView>
+                <!--<ContentView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="FillAndExpand" BackgroundColor="Black" Margin="0,0,0,5"></ContentView>-->
                 
                 <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" Margin="20,0,0,0">Ordernummer:</Label>
                 <Label x:Name="lbOrderNumber" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" Margin="20,0,0,0">1</Label>
@@ -56,6 +60,8 @@
                 
                 <Editor x:Name="entryIssue1" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="5,0,0,5" IsEnabled="False"></Editor>
                 <Editor x:Name="entryIssue2" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="0,0,5,5" IsEnabled="False"></Editor>
+
+                <Button x:Name="btnUpdate" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="4" HeightRequest="40" WidthRequest="200" HorizontalOptions="Center" Clicked="BtnUpdate_OnClicked" Text="Opslaan"/>
             </Grid>
         </ScrollView>
     </ContentPage.Content>

@@ -26,6 +26,15 @@ namespace ChauffeurApp
 		    };
 		    imageBack.GestureRecognizers.Add(imageLogout);
 
+		    var imageRefresher = new TapGestureRecognizer();
+		    imageRefresher.Tapped += (s, e) =>
+		    {
+                listView.ItemsSource = null;
+                _orders.Clear();
+		        GetRitOrders(id);
+		    };
+		    imageRefresh.GestureRecognizers.Add(imageRefresher);
+
             GetRitOrders(id);
         }
 
@@ -36,13 +45,16 @@ namespace ChauffeurApp
 
 	        try
 	        {
-	            var trimmedResult = result.Replace(" ","");
+	            var trimmedResult = result.Replace("Order id","Orderid");
+	            trimmedResult = trimmedResult.Replace("Huisnummer beginadres", "Huisnummerbeginadres");
+	            trimmedResult = trimmedResult.Replace("Huisnummer eindbestemming", "Huisnummereindbestemming");
+	            trimmedResult = trimmedResult.Replace("Gebruiker id","gebruikerid");
 	            var ritOrders = JsonConvert.DeserializeObject<List<RitOrders>>(trimmedResult);
 
                 foreach (var ritOrder in ritOrders)
 	            {
-                    _orders.Add(new Ritten(ritOrder.Orderid, ritOrder.Postcodebeginbestemming, "Ophalen"));
-                    _orders.Add(new Ritten(ritOrder.Orderid, ritOrder.Postcodeeindbestemming, "Afleveren"));
+                    _orders.Add(new Ritten(ritOrder.Orderid, ritOrder.Huisnummerbeginadres, "Ophalen"));
+                    _orders.Add(new Ritten(ritOrder.Orderid, ritOrder.Huisnummereindbestemming, "Afleveren"));
 	            }
 
 	            listView.ItemsSource = _orders;
@@ -69,24 +81,32 @@ namespace ChauffeurApp
 	        });
         }
 
-	    private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+	    private async void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
 	    {
-	        var passingItems = new List<object>();
-
             var listview = (ListView) sender;
 	        var selectedItem = (Ritten)listview.SelectedItem;
 
-            foreach (var item in listview.ItemsSource)
+	        try
 	        {
-	            var castItem = (Ritten)item;
+	            HttpClient client = new HttpClient();
+	            var result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/admin/api/getorders/" + selectedItem.Number);
+                
+                var trimmedResult = result.Replace("Order id", "Orderid");
+	            trimmedResult = trimmedResult.Replace("Huisnummer beginadres", "Huisnummerbeginadres");
+	            trimmedResult = trimmedResult.Replace("Huisnummer eindbestemming", "Huisnummereindbestemming");
+	            trimmedResult = trimmedResult.Replace("Gebruiker id", "gebruikerid");
+                var ritOrders = JsonConvert.DeserializeObject<List<RitOrders>>(trimmedResult);
 
-	            if (castItem.Number.Equals(selectedItem.Number))
+	            foreach (var ritOrder in ritOrders)
 	            {
-	                passingItems.Add(castItem);
+	                await Navigation.PushModalAsync(new OrderPage(ritOrder.Orderid, ritOrder.Huisnummerbeginadres, ritOrder.Huisnummereindbestemming, ritOrder.opgehaald, ritOrder.opgehaald_issue, ritOrder.opgehaald_opmerking, ritOrder.afgeleverd, ritOrder.afgeleverd_issue, ritOrder.afgeleverd_opmerking));
 	            }
 	        }
-
-	        Navigation.PushModalAsync(new OrderPage(passingItems));
+	        catch (Exception)
+	        {
+	            if (!await DisplayAlert("Geen gegevens!", "Er konden geen gegevens worden opgehaald.\n\nProbeer opnieuw!", "ja", "nee")) return;
+	            ListView_OnItemTapped(sender, e);
+	        }
         }
 	}
 }

@@ -26,29 +26,27 @@ namespace ChauffeurApp
             var button = (Button) sender;
             button.IsEnabled = false;
 
-            HttpClient client = new HttpClient();
-            string result;
-
             try
             {
-                result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/admin/api/login/" + usernameEntry.Text.Trim() + "/" + passwordEntry.Text.Trim());
+                HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false });
+                string result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/admin/api/login/" + usernameEntry.Text.Trim() + "/" + passwordEntry.Text.Trim());
+
+                try
+                {
+                    var chauffeur = JsonConvert.DeserializeObject<Chauffeur>(result);
+                    await Navigation.PushModalAsync(new DashboardPage(chauffeur.Id, chauffeur.Voornaam));
+                }
+                catch (Exception)
+                {
+                    await DisplayAlert("Onjuist!", "Gebruikersnaam of wachtwoord is onjuist!", "Ok");
+                    button.IsEnabled = true;
+                }
             }
             catch (Exception)
             {
                 await DisplayAlert("Geen verbinding!", "Zet uw WIFI of mobiele data aan!", "Ok");
                 button.IsEnabled = true;
                 return;
-            }
-
-            try
-            {
-                var chauffeur = JsonConvert.DeserializeObject<Chauffeur>(result);
-                await Navigation.PushModalAsync(new DashboardPage(chauffeur.Id, chauffeur.Voornaam));
-            }
-            catch (Exception)
-            {
-                await DisplayAlert("Onjuist!", "Gebruikersnaam of wachtwoord is onjuist!", "Ok");
-                button.IsEnabled = true;
             }
 
             button.IsEnabled = true;
