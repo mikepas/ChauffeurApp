@@ -12,7 +12,7 @@ namespace ChauffeurApp
         public MainPage()
         {
             InitializeComponent();
-            Image.Source = ImageSource.FromResource("ChauffeurApp.eeoswqfxlmiozhyszotl.png");
+            Image.Source = ImageSource.FromResource("ChauffeurApp.truck.png");
         }
 
         protected override void OnAppearing()
@@ -29,7 +29,7 @@ namespace ChauffeurApp
             try
             {
                 HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false });
-                string result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/admin/api/login/" + usernameEntry.Text.Trim() + "/" + passwordEntry.Text.Trim());
+                string result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/planningssysteem/api/login/" + usernameEntry.Text.Trim() + "/" + passwordEntry.Text.Trim());
 
                 try
                 {

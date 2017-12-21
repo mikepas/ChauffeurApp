@@ -15,8 +15,6 @@
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="10"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="70"></ColumnDefinition>
@@ -60,8 +58,6 @@
                 
                 <Editor x:Name="entryIssue1" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="5,0,0,5" IsEnabled="False"></Editor>
                 <Editor x:Name="entryIssue2" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="0,0,5,5" IsEnabled="False"></Editor>
-
-                <Button x:Name="btnUpdate" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="4" HeightRequest="40" WidthRequest="200" HorizontalOptions="Center" Clicked="BtnUpdate_OnClicked" Text="Opslaan"/>
             </Grid>
         </ScrollView>
     </ContentPage.Content>

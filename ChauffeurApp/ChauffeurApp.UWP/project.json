@@ -1,8 +1,9 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "6.0.2",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "6.0.5",
     "Newtonsoft.Json": "10.0.3",
-    "Xamarin.Forms": "2.5.0.91635",
+    "System.Net.Http": "4.3.3",
+    "Xamarin.Forms": "2.5.0.121934",
     "Xamarin.Forms.Maps": "2.5.0.91635"
   },
   "frameworks": {

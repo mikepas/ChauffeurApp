@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -44,6 +45,15 @@ namespace ChauffeurApp
             SetMapImage();
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            if (UpdateRit())
+            {
+                base.OnBackButtonPressed();
+            }
+            return true;
+        }
+
         private void SetLabels()
         {
             lbOrderNumber.Text = _id;
@@ -70,9 +80,9 @@ namespace ChauffeurApp
             }
         }
 
-        private async void UpdateRit()
+        private bool UpdateRit()
         {
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
 
             var opgehaald = "0";
             var afgehaald = "0";
@@ -103,29 +113,31 @@ namespace ChauffeurApp
             {
                 if (issueOpgehaald == "1" && entryIssue1.Text == "")
                 {
-                    await DisplayAlert("Leeg veld!", "Vul een opmerking in!", "Ok");
-                    return;
+                    DisplayAlert("Leeg veld!", "Vul een opmerking in!", "Ok");
+                    return false;
                 }
 
                 if (issueAfgehaald == "1" && entryIssue2.Text == "")
                 {
-                    await DisplayAlert("Leeg veld!", "Vul een opmerking in!", "Ok");
-                    return;
+                    DisplayAlert("Leeg veld!", "Vul een opmerking in!", "Ok");
+                    return false;
                 }
 
-                var url = "http://webdesignwolters.nl/snelle-wiel/admin/api/updaterit/" + _id + "/" + opgehaald +
+                var url = "http://webdesignwolters.nl/snelle-wiel/planningssysteem/api/updaterit/" + _id + "/" + opgehaald +
                           "/" + issueOpgehaald + "/" + entryIssue1.Text + "/" + afgehaald +
                           "/" + issueAfgehaald + "/" + entryIssue2.Text;
-                await client.GetStringAsync(url);
-                await DisplayAlert("Opgeslagen!", "De gegevens zijn opgeslagen!", "Ok");
+                client.GetStringAsync(url);
+                DisplayAlert("Opgeslagen!", "De gegevens zijn opgeslagen!", "Ok");
             }
             catch (Exception)
             {
-                if (await DisplayAlert("Geen verbinding!", "Zet uw WIFI of mobiele data aan.\n\nOpnieuw proberen?", "ja", "niet opslaan"))
+                if (DisplayAlert("Geen verbinding!", "Zet uw WIFI of mobiele data aan.\n\nOpnieuw proberen?", "ja", "niet opslaan").Result)
                 {
                     UpdateRit();
                 }
+                return false;
             }
+            return true;
         }
 
         private void SetMapImage()
@@ -140,12 +152,15 @@ namespace ChauffeurApp
         {
             if (e.Value)
             {
+                switchAfgeleverd.IsToggled = false;
+                switchAfgeleverd.IsEnabled = false;
                 entryIssue1.IsEnabled = true;
                 switchOpgehaald.IsToggled = false;
                 entryIssue1.Focus();
             }
             else if (e.Value == false)
             {
+                switchAfgeleverd.IsEnabled = true;
                 entryIssue1.IsEnabled = false;
                 entryIssue1.Text = "";
             }
@@ -178,11 +193,6 @@ namespace ChauffeurApp
             if (!e.Value) return;
             switchIssue2.IsToggled = false;
             entryIssue2.Text = "";
-        }
-
-        private void BtnUpdate_OnClicked(object sender, EventArgs e)
-        {
-            UpdateRit();
         }
     }
 }

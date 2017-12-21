@@ -41,7 +41,7 @@ namespace ChauffeurApp
 	    public async void GetRitOrders(string id)
 	    {
 	        HttpClient client = new HttpClient();
-	        var result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/admin/api/getordersfromrit/" + id);
+	        var result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/planningssysteem/api/getordersfromrit/" + id);
 
 	        try
 	        {
@@ -88,8 +88,9 @@ namespace ChauffeurApp
 
 	        try
 	        {
-	            HttpClient client = new HttpClient();
-	            var result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/admin/api/getorders/" + selectedItem.Number);
+	            var client = new HttpClient();
+	            var request = "http://webdesignwolters.nl/snelle-wiel/planningssysteem/api/getorders/" + selectedItem.Number;
+                var result = await client.GetStringAsync(request);
                 
                 var trimmedResult = result.Replace("Order id", "Orderid");
 	            trimmedResult = trimmedResult.Replace("Huisnummer beginadres", "Huisnummerbeginadres");
