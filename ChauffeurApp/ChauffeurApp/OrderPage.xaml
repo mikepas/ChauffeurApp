@@ -14,7 +14,7 @@
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="70"></ColumnDefinition>
@@ -56,8 +56,8 @@
                 <Switch x:Name="switchIssue2" Grid.Row="7" Grid.Column="2" Margin="15,0,0,0" Toggled="SwitchIssue2_OnToggled"/>
                 <Label Grid.Row="7" Grid.Column="3" HorizontalOptions="StartAndExpand" Margin="10,8,0,0">Issue?</Label>
                 
-                <Editor x:Name="entryIssue1" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="5,0,0,5" IsEnabled="False"></Editor>
-                <Editor x:Name="entryIssue2" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="0,0,5,5" IsEnabled="False"></Editor>
+                <Editor x:Name="entryIssue1" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="5,0,0,10" IsEnabled="False"></Editor>
+                <Editor x:Name="entryIssue2" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#E0E0E0" Margin="0,0,5,10" IsEnabled="False"></Editor>
             </Grid>
         </ScrollView>
     </ContentPage.Content>
