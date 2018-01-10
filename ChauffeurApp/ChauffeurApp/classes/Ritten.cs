@@ -14,36 +14,22 @@ namespace ChauffeurApp.classes
             {
                 if (order.opgehaald == "0")
                 {
-                    if (order.opgehaald_issue=="0")
-                    {
-                        RitColor = Color.White;
-                    }
-                    else
-                    {
-                        RitColor = Color.Red;
-                    }
+                    RitColor = order.opgehaald_issue=="0" ? Color.White : Color.Red;
                 }
                 else
                 {
-                    RitColor = Color.Green;
+                    RitColor = Color.YellowGreen;
                 }
             }
             else
             {
                 if (order.afgeleverd == "0")
                 {
-                    if (order.afgeleverd_issue == "0")
-                    {
-                        RitColor = Color.White;
-                    }
-                    else
-                    {
-                        RitColor = Color.Red;
-                    }
+                    RitColor = order.afgeleverd_issue == "0" ? Color.White : Color.Red;
                 }
                 else
                 {
-                    RitColor = Color.Green;
+                    RitColor = Color.YellowGreen;
                 }
             }
         }

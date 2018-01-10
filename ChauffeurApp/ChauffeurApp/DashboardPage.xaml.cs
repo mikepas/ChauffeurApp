@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using ChauffeurApp.classes;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -13,10 +12,13 @@ namespace ChauffeurApp
 	public partial class DashboardPage : ContentPage
 	{
 	    private readonly List<Ritten> _orders = new List<Ritten>();
+	    private readonly string _id;
 
         public DashboardPage (string id, string naam)
 		{
 		    InitializeComponent ();
+
+		    _id = id;
 
 		    lbChauffeurName.Text = "Welkom " + naam;
 
@@ -30,18 +32,25 @@ namespace ChauffeurApp
 		    var imageRefresher = new TapGestureRecognizer();
 		    imageRefresher.Tapped += (s, e) =>
 		    {
+		        imageRefresh.IsEnabled = false;
                 listView.ItemsSource = null;
                 _orders.Clear();
-		        GetRitOrders(id);
+		        GetRitOrders(_id);
+		        imageRefresh.IsEnabled = true;
 		    };
 		    imageRefresh.GestureRecognizers.Add(imageRefresher);
-
-            GetRitOrders(id);
         }
 
-        public async void GetRitOrders(string id)
+	    protected override void OnAppearing()
 	    {
-	        HttpClient client = new HttpClient();
+	        listView.ItemsSource = null;
+	        _orders.Clear();
+            GetRitOrders(_id);
+	    }
+
+        private async void GetRitOrders(string id)
+	    {
+	        var client = new HttpClient();
 	        var result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/planningssysteem/api/getordersfromrit/" + id);
 
 	        try
@@ -86,6 +95,7 @@ namespace ChauffeurApp
 	    {
             var listview = (ListView) sender;
 	        var selectedItem = (Ritten)listview.SelectedItem;
+	        listview.IsEnabled = false;
 
 	        try
 	        {
@@ -109,6 +119,8 @@ namespace ChauffeurApp
 	            if (!await DisplayAlert("Geen gegevens!", "Er konden geen gegevens worden opgehaald.\n\nProbeer opnieuw!", "ja", "nee")) return;
 	            ListView_OnItemTapped(sender, e);
 	        }
+
+	        listview.IsEnabled = true;
         }
 	}
 }

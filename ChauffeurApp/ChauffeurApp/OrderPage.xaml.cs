@@ -37,7 +37,9 @@ namespace ChauffeurApp
             var imageBackGestureRecognizer = new TapGestureRecognizer();
             imageBackGestureRecognizer.Tapped += (s, e) =>
             {
+                imageBack.IsEnabled = false;
                 OnBackButtonPressed();
+                imageBack.IsEnabled = true;
             };
             imageBack.GestureRecognizers.Add(imageBackGestureRecognizer);
 
