@@ -30,7 +30,7 @@
                     <DataTemplate>
                         <chauffeurApp:CustomViewCell SelectedBackgroundColor="#eee">
                             <ViewCell.View>
-                                <Grid>
+                                <Grid BackgroundColor="{Binding RitColor}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="50"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>

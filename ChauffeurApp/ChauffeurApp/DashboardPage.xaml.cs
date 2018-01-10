@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 using ChauffeurApp.classes;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -38,7 +39,7 @@ namespace ChauffeurApp
             GetRitOrders(id);
         }
 
-	    public async void GetRitOrders(string id)
+        public async void GetRitOrders(string id)
 	    {
 	        HttpClient client = new HttpClient();
 	        var result = await client.GetStringAsync("http://webdesignwolters.nl/snelle-wiel/planningssysteem/api/getordersfromrit/" + id);
@@ -53,8 +54,8 @@ namespace ChauffeurApp
 
                 foreach (var ritOrder in ritOrders)
 	            {
-                    _orders.Add(new Ritten(ritOrder.Orderid, ritOrder.Huisnummerbeginadres, "Ophalen"));
-                    _orders.Add(new Ritten(ritOrder.Orderid, ritOrder.Huisnummereindbestemming, "Afleveren"));
+                    _orders.Add(new Ritten(ritOrder, "Ophalen"));
+                    _orders.Add(new Ritten(ritOrder, "Afleveren"));
 	            }
 
 	            listView.ItemsSource = _orders;
